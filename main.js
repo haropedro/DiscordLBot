@@ -1,10 +1,14 @@
+
+
+
 const Discord = require('discord.js');
 
 
 const client = new Discord.Client();
+const config = require("./config.json");
 
 
-const prefix = '-';
+
 
 const cheerio = require('cheerio');
 
@@ -26,9 +30,9 @@ client.once('ready', () => {
 });
 
 client.on('message', message => {
-  if(!message.content.startsWith(prefix) || message.author.bot) return;
+  if(!message.content.startsWith(config.prefix) || message.author.bot) return;
 
-  const args = message.content.slice(prefix.length).split(/ +/);
+  const args = message.content.slice(config.prefix.length).split(/ +/);
   const command = args.shift().toLowerCase();
 
   if(command === 'ping'){
@@ -37,9 +41,14 @@ client.on('message', message => {
     client.commands.get('youtube').execute(message, args);
   } else if (command == 'google'){
     client.commands.get('google').execute(message, args);
-  }else if (command == 'image'){
-    image(message);
-  }
+  }else if (command == 'asl'){
+    let age = args[0]; // Remember arrays are 0-based!.
+    let sex = args[1];
+    let location = args[2];
+    message.reply(`Hello ${message.author.username}, I see you're a ${age} year old ${sex} from ${location}. Wanna date?`);
+  } else if (command == 'kick'){
+    let member = message.mentions.members.first();
+    member.kick();
 
 });
 
@@ -53,4 +62,4 @@ function image(message){
 
 
 
-client.login('NzUwNzcyODY3OTU1OTQ5NTY4.X0_ZuA.BrdrQJScBTPUydUHp3xmwQddYW4');
+client.login(config.token);

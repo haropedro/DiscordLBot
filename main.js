@@ -7,6 +7,10 @@ const Discord = require('discord.js');
 const client = new Discord.Client();
 const config = require("./config.json");
 
+var age = 30;
+
+
+
 
 
 
@@ -41,22 +45,17 @@ client.on('message', message => {
     client.commands.get('youtube').execute(message, args);
   } else if (command == 'google'){
     client.commands.get('google').execute(message, args);
-  }else if (command == 'asl'){
+  } else if (command == 'asl'){
     let age = args[0]; // Remember arrays are 0-based!.
     let sex = args[1];
     let location = args[2];
-    message.reply(`Hello ${message.author.username}, I see you're a ${age} year old ${sex} from ${location}. Wanna date?`);
-  } else if (command == 'kick'){
-    let member = message.mentions.members.first();
-    member.kick();
+    age = 28;
+    sex = "male";
+    location = "Oakland";
+    message.reply(`Hello ${message.author.username}, I see you're a ${age} year old, ${sex} from ${location}. Wanna date?`);
+  }
 
 });
-
-function image(message){
-
-}
-
-
 
 
 
